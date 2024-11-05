@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.roman.cryptotracker"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.roman.cryptotracker"
