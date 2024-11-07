@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.roman.cryptotracker.crypto.presentation.coin_list.components.CoinListItemView
+import com.roman.cryptotracker.crypto.presentation.coin_list.views.CoinListItemView
 import com.roman.cryptotracker.ui.preview.CoinListUiStatePreviewParameterProvider
 import com.roman.cryptotracker.ui.theme.CryptoTrackerTheme
 
