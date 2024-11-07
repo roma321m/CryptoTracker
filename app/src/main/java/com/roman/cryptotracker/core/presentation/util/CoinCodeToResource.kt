@@ -1,4 +1,4 @@
-package com.roman.cryptotracker.util
+package com.roman.cryptotracker.core.presentation.util
 
 import com.roman.cryptotracker.R
 

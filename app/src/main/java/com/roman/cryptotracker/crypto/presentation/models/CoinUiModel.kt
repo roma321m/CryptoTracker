@@ -1,8 +1,8 @@
 package com.roman.cryptotracker.crypto.presentation.models
 
 import androidx.annotation.DrawableRes
+import com.roman.cryptotracker.core.presentation.util.getDrawableIdForCoin
 import com.roman.cryptotracker.crypto.domain.Coin
-import com.roman.cryptotracker.util.getDrawableIdForCoin
 
 data class CoinUiModel(
     val id: String,

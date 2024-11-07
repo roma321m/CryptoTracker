@@ -1,10 +1,10 @@
 package com.roman.cryptotracker.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.roman.cryptotracker.core.presentation.util.getDrawableIdForCoin
 import com.roman.cryptotracker.crypto.presentation.models.CoinUiModel
 import com.roman.cryptotracker.crypto.presentation.models.DisplayableNumber
 import com.roman.cryptotracker.crypto.presentation.models.toDisplayableNumber
-import com.roman.cryptotracker.util.getDrawableIdForCoin
 
 class CoinUiModelPreviewParameterProvider : PreviewParameterProvider<CoinUiModel> {
 
