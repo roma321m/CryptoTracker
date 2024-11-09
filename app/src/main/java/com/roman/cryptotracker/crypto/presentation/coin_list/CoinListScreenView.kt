@@ -19,9 +19,11 @@ import com.roman.cryptotracker.crypto.presentation.coin_list.views.CoinListItemV
 import com.roman.cryptotracker.ui.preview.CoinListUiStatePreviewParameterProvider
 import com.roman.cryptotracker.ui.theme.CryptoTrackerTheme
 
+
 @Composable
 fun CoinListScreenView(
     uiState: CoinListUiState,
+    onAction: (CoinListAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (uiState.isLoading) {
@@ -39,7 +41,9 @@ fun CoinListScreenView(
             items(uiState.coins) { coinUiModel ->
                 CoinListItemView(
                     coinUiModel = coinUiModel,
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        onAction(CoinListAction.OnCoinClick(coinUiModel))
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
                 HorizontalDivider()
@@ -48,7 +52,6 @@ fun CoinListScreenView(
     }
 }
 
-
 @PreviewLightDark
 @Composable
 fun CoinListScreenPreview(
@@ -56,7 +59,10 @@ fun CoinListScreenPreview(
 ) {
     CryptoTrackerTheme {
         Surface {
-            CoinListScreenView(uiState = uiState)
+            CoinListScreenView(
+                uiState = uiState,
+                onAction = {}
+            )
         }
     }
 }

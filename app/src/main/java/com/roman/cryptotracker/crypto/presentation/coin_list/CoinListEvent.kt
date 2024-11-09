@@ -1,8 +1,7 @@
 package com.roman.cryptotracker.crypto.presentation.coin_list
 
-import com.roman.cryptotracker.crypto.presentation.models.CoinUiModel
+import com.roman.cryptotracker.core.domain.util.NetworkError
 
 sealed interface CoinListEvent {
-    data class OnCoinClick(val coinUiModel: CoinUiModel) : CoinListEvent
-    data object OnRefresh : CoinListEvent
+    data class Error(val error: NetworkError) : CoinListEvent
 }

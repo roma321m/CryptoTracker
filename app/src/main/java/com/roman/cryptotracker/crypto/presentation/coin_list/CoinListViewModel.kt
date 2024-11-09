@@ -9,9 +9,11 @@ import com.roman.cryptotracker.core.domain.util.onSuccess
 import com.roman.cryptotracker.crypto.domain.CoinRepository
 import com.roman.cryptotracker.crypto.presentation.models.CoinUiModel
 import com.roman.cryptotracker.crypto.presentation.models.toCoinUiModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -33,16 +35,21 @@ class CoinListViewModel(
             CoinListUiState()
         )
 
-    fun onEvent(event: CoinListEvent) {
-        Log.d(TAG, "onEvent: $event")
+    private val _events = Channel<CoinListEvent>()
+    val events = _events.receiveAsFlow()
+
+    fun onAction(event: CoinListAction) {
+        Log.d(TAG, "onEvent: ${event.javaClass.canonicalName}")
+
         when (event) {
-            is CoinListEvent.OnCoinClick -> onCoinClick(event.coinUiModel)
-            CoinListEvent.OnRefresh -> loadCoins()
+            is CoinListAction.OnCoinClick -> onCoinClick(event.coinUiModel)
+            CoinListAction.OnRefresh -> loadCoins()
         }
     }
 
     fun onLifecycleEvent(event: Lifecycle.Event) {
-        Log.d(TAG, "onLifecycleEvent: $event")
+        Log.d(TAG, "onLifecycleEvent: ${event.name}")
+
         when (event) {
             Lifecycle.Event.ON_CREATE -> Unit
             else -> Unit
@@ -69,10 +76,8 @@ class CoinListViewModel(
                     }
                 }.onError { error ->
                     Log.e(TAG, "loadCoins: onError $error")
-                    _uiState.update {
-                        it.copy(isLoading = false)
-                        // TODO: handle error
-                    }
+                    _uiState.update { it.copy(isLoading = false) }
+                    _events.send(CoinListEvent.Error(error))
                 }
         }
     }
