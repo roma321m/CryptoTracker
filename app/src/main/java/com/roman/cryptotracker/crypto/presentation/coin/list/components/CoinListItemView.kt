@@ -1,4 +1,4 @@
-package com.roman.cryptotracker.crypto.presentation.coin_list.views
+package com.roman.cryptotracker.crypto.presentation.coin.list.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

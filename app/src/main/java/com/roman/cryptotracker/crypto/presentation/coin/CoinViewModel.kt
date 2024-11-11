@@ -1,4 +1,4 @@
-package com.roman.cryptotracker.crypto.presentation.coin_list
+package com.roman.cryptotracker.crypto.presentation.coin
 
 import android.util.Log
 import androidx.lifecycle.Lifecycle
@@ -17,8 +17,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.ZonedDateTime
 
-class CoinListViewModel(
+class CoinViewModel(
     private val coinRepository: CoinRepository
 ) : ViewModel() {
 
@@ -26,24 +27,24 @@ class CoinListViewModel(
         const val TAG = "CoinListViewModel"
     }
 
-    private val _uiState = MutableStateFlow(CoinListUiState())
+    private val _uiState = MutableStateFlow(CoinUiState())
     val uiState = _uiState
         .onStart { loadCoins() }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            CoinListUiState()
+            CoinUiState()
         )
 
-    private val _events = Channel<CoinListEvent>()
+    private val _events = Channel<CoinEvent>()
     val events = _events.receiveAsFlow()
 
-    fun onAction(event: CoinListAction) {
+    fun onAction(event: CoinAction) {
         Log.d(TAG, "onEvent: ${event.javaClass.canonicalName}")
 
         when (event) {
-            is CoinListAction.OnCoinClick -> onCoinClick(event.coinUiModel)
-            CoinListAction.OnRefresh -> loadCoins()
+            is CoinAction.OnCoinClick -> onCoinClick(event.coinUiModel)
+            CoinAction.OnRefresh -> loadCoins()
         }
     }
 
@@ -77,14 +78,30 @@ class CoinListViewModel(
                 }.onError { error ->
                     Log.e(TAG, "loadCoins: onError $error")
                     _uiState.update { it.copy(isLoading = false) }
-                    _events.send(CoinListEvent.Error(error))
+                    _events.send(CoinEvent.Error(error))
                 }
         }
     }
 
     private fun onCoinClick(coinUiModel: CoinUiModel) {
         Log.d(TAG, "onCoinClick: $coinUiModel")
-        // TODO: navigate to coin details
+        _uiState.update {
+            it.copy(selectedCoin = coinUiModel)
+        }
+
+        viewModelScope.launch {
+            coinRepository.getCoinHistory(
+                coinId = coinUiModel.id,
+                start = ZonedDateTime.now().minusDays(5),
+                end = ZonedDateTime.now()
+            ).onSuccess { history ->
+                Log.d(TAG, "onCoinClick: onSuccess $history")
+                // todo
+            }.onError { error ->
+                Log.e(TAG, "onCoinClick: onError $error")
+                _events.send(CoinEvent.Error(error))
+            }
+        }
     }
 
 }

@@ -2,11 +2,11 @@ package com.roman.cryptotracker.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.roman.cryptotracker.core.presentation.util.getDrawableIdForCoin
-import com.roman.cryptotracker.crypto.presentation.coin_list.CoinListUiState
+import com.roman.cryptotracker.crypto.presentation.coin.CoinUiState
 import com.roman.cryptotracker.crypto.presentation.models.CoinUiModel
 import com.roman.cryptotracker.crypto.presentation.models.toDisplayableNumber
 
-class CoinListUiStatePreviewParameterProvider : PreviewParameterProvider<CoinListUiState> {
+class CoinUiStatePreviewParameterProvider : PreviewParameterProvider<CoinUiState> {
 
     private val coins = listOf(
         CoinUiModel(
@@ -61,16 +61,17 @@ class CoinListUiStatePreviewParameterProvider : PreviewParameterProvider<CoinLis
         )
     )
 
-    private val loadingUiState = CoinListUiState(isLoading = true)
-    private val listUiState = CoinListUiState(coins = coins)
-    private val emptyListUiState = CoinListUiState()
-    private val listWithSelectedCoinUiState =
-        CoinListUiState(coins = coins, selectedCoin = coins[2])
+    private val loadingUiState = CoinUiState(isLoading = true)
+    private val listUiState = CoinUiState(coins = coins)
+    private val emptyListUiState = CoinUiState()
+    private val positiveSelectedCoinUiState = CoinUiState(coins = coins, selectedCoin = coins[0])
+    private val negativeSelectedCoinUiState = CoinUiState(coins = coins, selectedCoin = coins[1])
 
-    override val values: Sequence<CoinListUiState> = sequenceOf(
+    override val values: Sequence<CoinUiState> = sequenceOf(
         loadingUiState,
         listUiState,
         emptyListUiState,
-        listWithSelectedCoinUiState
+        positiveSelectedCoinUiState,
+        negativeSelectedCoinUiState
     )
 }

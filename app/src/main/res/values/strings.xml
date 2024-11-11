@@ -7,4 +7,12 @@
     <string name="error_no_internet_connection">Could not connect to server, please check your internet connection.</string>
     <string name="error_unknown">Something went wrong. Please try again later.</string>
     <string name="error_serialization">Could not serialize or deserialize data.</string>
+
+    // coin detail screen
+    <string name="coin_detail_screen_not_coin_selected_title">Select a coin to view details</string>
+    <string name="coin_detail_market_cap_title">Market Cap</string>
+    <string name="coin_detail_price_title">Price</string>
+    <string name="coin_detail_change_last_24h_title">Change last 24h</string>
+    // coin list screen
+
 </resources>
