@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import com.roman.cryptotracker.core.presentation.components.LoadingView
 import com.roman.cryptotracker.crypto.presentation.coin.CoinUiState
 import com.roman.cryptotracker.crypto.presentation.coin.details.components.CoinDetailView
-import com.roman.cryptotracker.crypto.presentation.components.LoadingView
 import com.roman.cryptotracker.ui.preview.CoinUiStatePreviewParameterProvider
 import com.roman.cryptotracker.ui.theme.CryptoTrackerTheme
 

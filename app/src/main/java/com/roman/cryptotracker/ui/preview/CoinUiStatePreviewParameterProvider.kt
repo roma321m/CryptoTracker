@@ -1,12 +1,30 @@
 package com.roman.cryptotracker.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.roman.cryptotracker.core.presentation.components.graph.DataPoint
 import com.roman.cryptotracker.core.presentation.util.getDrawableIdForCoin
+import com.roman.cryptotracker.crypto.domain.CoinPrice
 import com.roman.cryptotracker.crypto.presentation.coin.CoinUiState
 import com.roman.cryptotracker.crypto.presentation.models.CoinUiModel
 import com.roman.cryptotracker.crypto.presentation.models.toDisplayableNumber
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.random.Random
 
 class CoinUiStatePreviewParameterProvider : PreviewParameterProvider<CoinUiState> {
+
+    private val dataPoints = (1..20).map {
+        CoinPrice(
+            Random.nextFloat() * 1_000.0,
+            ZonedDateTime.now().plusHours(it.toLong())
+        )
+    }.map {
+        DataPoint(
+            x = it.dateTime.hour.toFloat(),
+            y = it.priceUsd.toFloat(),
+            xLabel = DateTimeFormatter.ofPattern("hh\nM/d").format(it.dateTime),
+        )
+    }
 
     private val coins = listOf(
         CoinUiModel(
@@ -17,7 +35,8 @@ class CoinUiStatePreviewParameterProvider : PreviewParameterProvider<CoinUiState
             marketCapUsd = 380000000.0.toDisplayableNumber(),
             priceUsd = 68458.15.toDisplayableNumber(),
             changePercent24Hr = 2.5.toDisplayableNumber(),
-            iconRes = getDrawableIdForCoin("BTC")
+            iconRes = getDrawableIdForCoin("BTC"),
+            coinPriceHistory = dataPoints
         ),
         CoinUiModel(
             id = "ethereum",
@@ -27,7 +46,8 @@ class CoinUiStatePreviewParameterProvider : PreviewParameterProvider<CoinUiState
             marketCapUsd = 180000000.0.toDisplayableNumber(),
             priceUsd = 3200.50.toDisplayableNumber(),
             changePercent24Hr = (-1.2).toDisplayableNumber(),
-            iconRes = getDrawableIdForCoin("ETH")
+            iconRes = getDrawableIdForCoin("ETH"),
+            coinPriceHistory = dataPoints
         ),
         CoinUiModel(
             id = "tether",

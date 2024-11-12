@@ -1,4 +1,4 @@
-package com.roman.cryptotracker.crypto.presentation.components
+package com.roman.cryptotracker.core.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

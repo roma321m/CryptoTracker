@@ -1,6 +1,7 @@
 package com.roman.cryptotracker.crypto.presentation.models
 
 import androidx.annotation.DrawableRes
+import com.roman.cryptotracker.core.presentation.components.graph.DataPoint
 import com.roman.cryptotracker.core.presentation.util.getDrawableIdForCoin
 import com.roman.cryptotracker.crypto.domain.Coin
 
@@ -12,7 +13,8 @@ data class CoinUiModel(
     val marketCapUsd: DisplayableNumber,
     val priceUsd: DisplayableNumber,
     val changePercent24Hr: DisplayableNumber,
-    @DrawableRes val iconRes: Int
+    @DrawableRes val iconRes: Int,
+    val coinPriceHistory: List<DataPoint> = emptyList(),
 )
 
 fun Coin.toCoinUiModel() = CoinUiModel(
