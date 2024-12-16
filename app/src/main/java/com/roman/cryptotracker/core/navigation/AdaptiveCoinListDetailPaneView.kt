@@ -20,7 +20,7 @@ import com.roman.cryptotracker.crypto.presentation.coin.CoinAction
 import com.roman.cryptotracker.crypto.presentation.coin.CoinEvent
 import com.roman.cryptotracker.crypto.presentation.coin.CoinViewModel
 import com.roman.cryptotracker.crypto.presentation.coin.details.CoinDetailScreenView
-import com.roman.cryptotracker.crypto.presentation.coin.list.components.CoinListView
+import com.roman.cryptotracker.crypto.presentation.coin.list.CoinListScreenView
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -49,7 +49,7 @@ fun AdaptiveCoinListDetailPaneView(
         navigator = navigator,
         listPane = {
             AnimatedPane {
-                CoinListView(
+                CoinListScreenView(
                     uiState = uiState,
                     onAction = { action ->
                         viewModel.onAction(action)
