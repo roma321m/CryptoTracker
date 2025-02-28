@@ -14,5 +14,5 @@ data class CoinDto(
     val volumeUsd24Hr: Double,
     val priceUsd: Double,
     val changePercent24Hr: Double,
-    val vwap24Hr: Double
+    val vwap24Hr: Double?
 )
